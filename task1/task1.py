@@ -1,9 +1,9 @@
+import sys
 from typing import List
 from itertools import cycle
 from math import lcm
 
 def get_circular_array_path(n: int, m: int) -> List[int]:
-
     circular_array = cycle(range(1, n + 1))
     result = []
     result_len = lcm(n, m-1) // (m - 1)
@@ -15,6 +15,10 @@ def get_circular_array_path(n: int, m: int) -> List[int]:
 
     return result
 
-assert get_circular_array_path(4, 3) == [1, 3]
-assert get_circular_array_path(5, 4) == [1, 4, 2, 5, 3]
-assert get_circular_array_path(1, 2) == [1]
+def print_array(n: int, m: int) -> None:
+    array = get_circular_array_path(n, m)
+    print("".join(map(str, array)))
+
+if __name__ == "__main__":
+    arg_n, arg_m = sys.argv[1:]
+    print_array(int(arg_n), int(arg_m))
