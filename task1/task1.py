@@ -1,24 +1,32 @@
 import sys
-from typing import List
+from typing import List, Optional
 from itertools import cycle
 from math import lcm
 
-def get_circular_array_path(n: int, m: int) -> List[int]:
-    circular_array = cycle(range(1, n + 1))
-    result = []
-    result_len = lcm(n, m-1) // (m - 1)
-    for _ in range(result_len - 1):
+class Solution():
+    def __init__(self, n: int, m: int):
+        self.n = n
+        self.m = m
+
+    def get_circular_array_path(self) -> List[int]:
+        circular_array = cycle(range(1, self.n + 1))
+        result = []
+        result_len = lcm(self.n, self.m - 1) // (self.m - 1)
+
+        for _ in range(result_len - 1):
+            result.append(next(circular_array))
+
+            for _ in range(self.m - 2):
+                next(circular_array)
+
         result.append(next(circular_array))
-        for _ in range(m - 2):
-            next(circular_array)
-    result.append(next(circular_array))
 
-    return result
+        return result
 
-def print_array(n: int, m: int) -> None:
-    array = get_circular_array_path(n, m)
-    print("".join(map(str, array)))
+    def print_array(self) -> None:
+        array = self.get_circular_array_path()
+        print("".join(map(str, array)))
 
 if __name__ == "__main__":
-    arg_n, arg_m = sys.argv[1:]
-    print_array(int(arg_n), int(arg_m))
+    solution = Solution(int(sys.argv[1]), int(sys.argv[2]))
+    solution.print_array()
